@@ -27,7 +27,7 @@ function Promise3(){
 
 let promise = [Promise1(),Promise2(),Promise3()];
 let tableBody = document.getElementById('output');
-let LoadingRow = document.getElementById('loading_row');
+let LoadingRow = document.getElementById('loading');
 
 Promise.all(promise)
 .then(data => {
