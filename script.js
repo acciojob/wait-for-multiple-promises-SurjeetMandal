@@ -1,4 +1,4 @@
-function Promise1(){
+function promise1(){
 	const time = 2;
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -7,7 +7,7 @@ function Promise1(){
 	})
 }
 
-function Promise2(){
+function promise2(){
 	const time = 1;
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -16,7 +16,7 @@ function Promise2(){
 	})
 }
 
-function Promise3(){
+function promise3(){
 	const time = 3;
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -25,7 +25,7 @@ function Promise3(){
 	})
 }
 
-let promise = [Promise1(),Promise2(),Promise3()];
+let promise = [promise1(),promise2(),promise3()];
 let tableBody = document.getElementById('output');
 let LoadingRow = document.getElementById('loading');
 
