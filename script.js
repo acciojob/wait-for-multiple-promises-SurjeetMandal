@@ -1,55 +1,53 @@
+//your JS code here. If required.
+const res = document.getElementById("output");
+
 const promises = [
-	new Promise((resolve) => {
-		const time1 = 2;
-		setTimeout(() => {
-			resolve({name: 'Promise 1', time: time1});
-		}, time1 * 1000);
-	}),
-	new Promise((resolve) => {
-		const time2 = 1;
-		setTimeout(() => {
-			resolve({name: 'Promise 2', time: time2});
-		}, time2 * 1000);
-	}),
-	new Promise((resolve) => {
-		const time3 = 3;
-		setTimeout(() => {
-			resolve({name: 'Promise 3', time: time3});
-		}, time3 * 1000);
-	}),
+  new Promise((resolve) => {
+    const time = Math.floor(Math.random() * 3 + 1) * 1000;
+    setTimeout(() => resolve({ name: "Promise 1", time: time / 1000 }), time);
+  }),
+  new Promise((resolve) => {
+    const time = Math.floor(Math.random() * 3 + 1) * 1000;
+    setTimeout(() => resolve({ name: "Promise 2", time: time / 1000 }), time);
+  }),
+  new Promise((resolve) => {
+    const time = Math.floor(Math.random() * 3 + 1) * 1000;
+    setTimeout(() => resolve({ name: "Promise 3", time: time / 1000 }), time);
+  }),
 ];
 
-let tableBody = document.getElementById('output');
-let loadingRow = document.getElementById('loading');
+async function callFns() {
+  const start = new Date();
+  // Use Promise.all to wait for all Promises to resolve
+  res.innerHTML += `
+            <tr id="loading">
+                <td colspan=2>Loading...</td>
+            </tr>
+          `;
+  await Promise.all(promises)
+    .then((results) => {
+      res.innerHTML = ``;
+      // Log the array of results
+      results.forEach((e) => {
+        res.innerHTML += `
+            <tr>
+                <td>${e.name}</td>
+                <td>${e.time}</td>
+            </tr>
+          `;
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
-Promise.all(promises).then(data => {
-	tableBody.removeChild(loadingRow);
-
-	let totalTime = 0;
-
-	data.forEach(item => {
-		let tr = document.createElement('tr');
-		let cell1 = document.createElement('td');
-		let cell2 = document.createElement('td');
-
-		cell1.textContent = item.name;
-		cell2.textContent = `${item.time}s`;
-
-		tr.appendChild(cell1);
-		tr.appendChild(cell2);
-		tableBody.appendChild(tr);
-
-		totalTime += item.time;
-	});
-
-	let tr = document.createElement('tr');
-	let cell1 = document.createElement('td');
-	let cell2 = document.createElement('td');
-
-	cell1.textContent = 'Total';
-	cell2.textContent = `${totalTime}s`;
-
-	tr.appendChild(cell1);
-	tr.appendChild(cell2);
-	tableBody.appendChild(tr);
-});
+  const end = new Date();
+  const timeInMillis = end - start;
+  res.innerHTML += `
+            <tr>
+                <td>Total</td>
+                <td>${timeInMillis / 1000}</td>
+            </tr>
+          `;
+}
+callFns();
