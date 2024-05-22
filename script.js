@@ -25,7 +25,7 @@ function promise3(){
 	})
 }
 
-let promise = [promise1(),promise2(),promise3()];
+let Promises = [promise1(),promise2(),promise3()];
 let tableBody = document.getElementById('output');
 let LoadingRow = document.getElementById('loading');
 
